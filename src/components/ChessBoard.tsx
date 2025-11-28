@@ -19,7 +19,6 @@ export default function ChessBoard({
   highlights,
   setHighlights,
 }: ChessBoardProps) {
-
   // Get legal moves from a square
   const getLegalMoves = (square: Square) => {
     const moves = game.moves({ square, verbose: true });
@@ -32,8 +31,8 @@ export default function ChessBoard({
     moves.forEach((move: any) => {
       newHighlights[move.to] = {
         background: game.get(move.to as Square)
-          ? "radial-gradient(circle, rgba(0,0,0,.1) 85%, transparent 85%)"
-          : "radial-gradient(circle, rgba(0,0,0,.1) 25%, transparent 25%)",
+          ? "radial-gradient(circle, rgba(255, 215, 0, 0.4) 85%, transparent 85%)"
+          : "radial-gradient(circle, rgba(0,0,0,.4) 25%, transparent 25%)",
         borderRadius: "50%",
       };
     });
@@ -44,7 +43,7 @@ export default function ChessBoard({
   // Handle tapping squares
   const onSquareClick = ({ square }: any) => {
     const clickedSquare = square as Square;
-    
+
     // No piece selected → select this one
     if (!selected) {
       const piece = game.get(clickedSquare);
@@ -75,6 +74,18 @@ export default function ChessBoard({
         setPosition(game.fen());
         setSelected(null);
         setHighlights({});
+        
+        // Check game states
+        if (game.isCheckmate()) {
+          console.log("CHECKMATE!");
+        } else if (game.isStalemate()) {
+          console.log("STALEMATE!");
+        } else if (game.isDraw()) {
+          console.log("DRAW!");
+        } else if (game.isCheck()) {
+          console.log("CHECK!");
+        }
+        
         return;
       }
     } catch (error) {
@@ -99,6 +110,14 @@ export default function ChessBoard({
       options={{
         position,
         onSquareClick,
+        darkSquareStyle: {
+          backgroundImage: 'url("/wood-dark.png")',
+          backgroundSize: "cover",
+        },
+        lightSquareStyle: {
+          backgroundImage: 'url("/wood-light.png")',
+          backgroundSize: "cover",
+        },
         squareStyles: highlights,
       }}
     />
