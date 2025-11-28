@@ -1,1 +1,16 @@
+.chessBoard {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 40px 0;
+    box-sizing: border-box;
+}
 
+.chessBoardWrapper {
+  width: min(90vw, calc(100vh - 80px));
+  height: min(90vw, calc(100vh - 80px));
+  aspect-ratio: 1 / 1;
+}
