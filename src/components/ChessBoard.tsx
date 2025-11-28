@@ -43,39 +43,54 @@ export default function ChessBoard({
 
   // Handle tapping squares
   const onSquareClick = ({ square }: any) => {
+    const clickedSquare = square as Square;
+    
     // No piece selected → select this one
     if (!selected) {
-      const piece = game.get(square as Square);
+      const piece = game.get(clickedSquare);
       if (piece && piece.color === game.turn()) {
-        setSelected(square as Square);
-        setHighlights(getLegalMoves(square as Square));
+        setSelected(clickedSquare);
+        setHighlights(getLegalMoves(clickedSquare));
       }
       return;
     }
 
-    // Try to move to the clicked square
-    const move = game.move({
-      from: selected,
-      to: square as Square,
-      promotion: "q", // always promote to queen
-    });
-
-    if (move) {
-      // Move successful
-      setPosition(game.fen());
+    // Clicking the same square → deselect
+    if (selected === clickedSquare) {
       setSelected(null);
       setHighlights({});
-    } else {
-      // Move failed, check if selecting a new piece
-      const piece = game.get(square as Square);
-      if (piece && piece.color === game.turn()) {
-        setSelected(square as Square);
-        setHighlights(getLegalMoves(square as Square));
-      } else {
-        // Deselect
+      return;
+    }
+
+    // Try to move to the clicked square
+    try {
+      const move = game.move({
+        from: selected,
+        to: clickedSquare,
+        promotion: "q", // always promote to queen
+      });
+
+      if (move) {
+        // Move successful
+        setPosition(game.fen());
         setSelected(null);
         setHighlights({});
+        return;
       }
+    } catch (error) {
+      // Invalid move
+    }
+
+    // Move failed or invalid, check if selecting a new piece
+    const piece = game.get(clickedSquare);
+    if (piece && piece.color === game.turn()) {
+      // Switch selection to this piece
+      setSelected(clickedSquare);
+      setHighlights(getLegalMoves(clickedSquare));
+    } else {
+      // Clicked on empty square or opponent's piece (invalid move) → deselect
+      setSelected(null);
+      setHighlights({});
     }
   };
 
