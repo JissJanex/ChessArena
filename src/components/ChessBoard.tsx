@@ -2,6 +2,12 @@ import { Chessboard } from "react-chessboard";
 import { game } from "./ChessLogic";
 import type { Square } from "chess.js";
 
+type GameOverState = {
+  isGameOver: boolean;
+  result: 'checkmate' | 'stalemate' | 'draw' | null;
+  winner: 'white' | 'black' | null;
+};
+
 interface ChessBoardProps {
   position: string;
   setPosition: (position: string) => void;
@@ -9,6 +15,7 @@ interface ChessBoardProps {
   setSelected: (square: Square | null) => void;
   highlights: Record<string, any>;
   setHighlights: (highlights: Record<string, any>) => void;
+  setGameOver: (gameOver: GameOverState) => void;
 }
 
 export default function ChessBoard({
@@ -18,6 +25,7 @@ export default function ChessBoard({
   setSelected,
   highlights,
   setHighlights,
+  setGameOver,
 }: ChessBoardProps) {
   // Get legal moves from a square
   const getLegalMoves = (square: Square) => {
@@ -78,10 +86,14 @@ export default function ChessBoard({
         // Check game states
         if (game.isCheckmate()) {
           console.log("CHECKMATE!");
+          const winner = game.turn() === 'w' ? 'black' : 'white';
+          setGameOver({ isGameOver: true, result: 'checkmate', winner });
         } else if (game.isStalemate()) {
           console.log("STALEMATE!");
+          setGameOver({ isGameOver: true, result: 'stalemate', winner: null });
         } else if (game.isDraw()) {
           console.log("DRAW!");
+          setGameOver({ isGameOver: true, result: 'draw', winner: null });
         } else if (game.isCheck()) {
           console.log("CHECK!");
         }
@@ -119,6 +131,7 @@ export default function ChessBoard({
           backgroundSize: "cover",
         },
         squareStyles: highlights,
+        allowDragging: false,  // Disables drag completely
       }}
     />
   );

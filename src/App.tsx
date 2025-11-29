@@ -1,27 +1,16 @@
-import { useState } from "react";
-import ChessBoard from "./components/ChessBoard";
-import { game } from "./components/ChessLogic";
 import "./App.css";
-import type { Square } from "chess.js";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import PvP from "./pages/PvP";
+import AiGame from "./pages/Ai";
 
 function App() {
-  const [position, setPosition] = useState(game.fen());
-  const [selected, setSelected] = useState<Square | null>(null);
-  const [highlights, setHighlights] = useState<Record<string, any>>({});
-
   return (
-    <div className="chessBoard">
-      <div className="chessBoardWrapper">
-        <ChessBoard
-          position={position}
-          setPosition={setPosition}
-          selected={selected}
-          setSelected={setSelected}
-          highlights={highlights}
-          setHighlights={setHighlights}
-        />
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/pvp" element={<PvP />} />
+      <Route path="/vs-computer" element={<AiGame />} />
+    </Routes>
   );
 }
 

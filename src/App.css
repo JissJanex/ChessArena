@@ -1,16 +1,266 @@
-.chessBoard {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    padding: 40px 0;
-    box-sizing: border-box;
+/* Global body background */
+body {
+  background: radial-gradient(circle at center, #3a2f24, #1d1a16);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
+/* Full viewport container for centering the board */
+.chessBoard {
+  width: 100vw;
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 20px 0;
+  box-sizing: border-box;
+  margin-top: 80px;
+}
+
+/* Wrapper around the chessboard for styling */
 .chessBoardWrapper {
-  width: min(90vw, calc(100vh - 80px));
-  height: min(90vw, calc(100vh - 80px));
+  width: min(80vw, calc(100vh - 200px));
+  height: min(80vw, calc(100vh - 200px));
   aspect-ratio: 1 / 1;
+
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  background: linear-gradient(145deg, #d2b48c, #a67c52);
+}
+
+/* Game over banner styles */
+.gameOverBanner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px 60px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1000;
+  min-width: 350px;
+}
+
+.gameOverBanner h1 {
+  margin: 0 0 20px 0;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.gameOverBanner p {
+  margin: 0 0 30px 0;
+  font-size: 1.5rem;
+  color: #555;
+  font-weight: bold;
+}
+
+.bannerButtons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.reviewButton,
+.newGameButton,
+.showResultButton {
+  padding: 12px 30px;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.reviewButton {
+  background-color: #6c757d;
+}
+
+.reviewButton:hover {
+  background-color: #5a6268;
+}
+
+.newGameButton {
+  background-color: #28a745;
+}
+
+.newGameButton:hover {
+  background-color: #218838;
+}
+
+.showResultButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  background-color: #007bff;
+  z-index: 1000;
+}
+
+.showResultButton:hover {
+  background-color: #0056b3;
+}
+
+.blurred {
+  filter: blur(5px);
+}
+
+/* Home page styles */
+.homePage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #3a2f24, #1d1a16);
+}
+
+.homeContainer {
+  text-align: center;
+  max-width: 600px;
+  padding: 40px;
+}
+
+.homeTitle {
+  font-size: 4rem;
+  color: #f0d9b5;
+  margin: 0 0 10px 0;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.homeSubtitle {
+  font-size: 1.3rem;
+  color: #b58863;
+  margin: 0 0 50px 0;
+  font-weight: 500;
+}
+
+.gameModeButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gameModeButton {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.gameModeButton:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.pvpButton:hover {
+  background: rgba(40, 167, 69, 0.2);
+  border: 2px solid #28a745;
+}
+
+.pvpButton:hover .buttonText h2,
+.pvpButton:hover .buttonText p {
+  color: #28a745;
+}
+
+.computerButton:hover {
+  background: rgba(0, 123, 255, 0.2);
+  border: 2px solid #007bff;
+}
+
+.computerButton:hover .buttonText h2,
+.computerButton:hover .buttonText p {
+  color: #007bff;
+}
+
+.buttonIcon {
+  font-size: 3.5rem;
+  flex-shrink: 0;
+}
+
+.buttonText {
+  text-align: left;
+  flex-grow: 1;
+}
+
+.buttonText h2 {
+  margin: 0 0 5px 0;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.buttonText p {
+  margin: 0;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Header styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(58, 47, 36, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  height: 80px;
+}
+
+.header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  color: #f0d9b5;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.header nav ul li {
+  margin: 0;
+}
+
+.header nav ul li a {
+  color: #b58863;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.header nav ul li a:hover {
+  color: #f0d9b5;
 }
