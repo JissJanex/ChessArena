@@ -9,6 +9,7 @@ A modern, interactive chess game built with React, TypeScript, and Vite. Play ch
 - **Move Validation**: Only legal moves allowed with visual highlighting
 - **Captured Pieces**: Track pieces captured by each side
 - **Game Detection**: Automatic check, checkmate, stalemate, and draw detection
+- **Game Over Banner**: Review final position or start a new game
 - **Wooden Theme**: Elegant board design with custom textures
 
 ## 🚀 Getting Started
@@ -32,7 +33,6 @@ A modern, interactive chess game built with React, TypeScript, and Vite. Play ch
 
 4. **Open your browser** - Navigate to `http://localhost:5173`
 
-
 ## 🎯 How to Play
 
 ### Player vs Player
@@ -42,19 +42,19 @@ A modern, interactive chess game built with React, TypeScript, and Vite. Play ch
 4. **Click the same piece** to deselect
 5. Use **Restart** button in header to start a new game
 
-### Player vs AI
+### Player vs Computer
 1. Click **"Player vs Computer"** from the home page
 2. You play as **White** and move first
 3. The **Computer** plays as Black and responds automatically
-4. The AI thinks for about 1 second before making each move
-5. Use **Restart** button to start a new game against the AI
+4. The computer thinks for about 1 second before making each move
+5. Use **Restart** button to start a new game against the computer
 
 ## 🛠️ Technology Stack
 
 - React + TypeScript + Vite
 - react-chessboard & chess.js
 - react-router-dom
-- Stockfish 17 (chess engine for computer)
+- Stockfish 17 (chess engine for computer opponent)
 
 ## 📝 License
 
