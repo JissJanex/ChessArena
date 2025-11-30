@@ -7,7 +7,6 @@ A modern, interactive chess game built with React, TypeScript, and Vite. Play ch
 - **Player vs Player**: Play chess against a friend on the same device
 - **Move Validation**: Only legal moves allowed with visual highlighting
 - **Game Detection**: Automatic check, checkmate, stalemate, and draw detection
-- **Game Over Banner**: Review final position or start a new game
 - **Wooden Theme**: Elegant board design with custom textures
 - **🤖 vs Computer**: Coming soon!
 
@@ -27,12 +26,6 @@ A modern, interactive chess game built with React, TypeScript, and Vite. Play ch
 
 3. **Open your browser** - Navigate to `http://localhost:5173`
 
-### Build for Production
-
-```bash
-npm run build
-npm run preview
-```
 
 ## 🎯 How to Play
 
