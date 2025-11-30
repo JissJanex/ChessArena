@@ -4,6 +4,7 @@ import ChessBoard from "../components/ChessBoard";
 import { game } from "../components/ChessLogic";
 import GameOverBanner from "../components/Banner";
 import Header from "../components/Header";
+import CapturedPanel from "../components/CapturedPanel";
 
 // Type definition for game over state
 type GameOverState = {
@@ -12,7 +13,7 @@ type GameOverState = {
   winner: "white" | "black" | null;
 };
 
-function App() {
+function Pvp() {
   // Chess game state - stores the current board position in FEN notation
   const [position, setPosition] = useState(game.fen());
   
@@ -22,6 +23,11 @@ function App() {
   // Highlighted squares for legal moves and selected piece
   const [highlights, setHighlights] = useState<Record<string, any>>({});
   
+  //Keeps track to captured pieces
+  const [whiteCaptured, setWhiteCaptured] = useState<{type:string,color:'white'|'black'}[]>([]); // white pieces removed from board
+  const [blackCaptured, setBlackCaptured] = useState<{type:string,color:'white'|'black'}[]>([]); // black pieces removed from board
+
+
   // Game over state - tracks if game ended and how
   const [gameOver, setGameOver] = useState<GameOverState>({
     isGameOver: false,     
@@ -40,6 +46,8 @@ function App() {
     setHighlights({});
     setGameOver({ isGameOver: false, result: null, winner: null });
     setShowBanner(true);
+    setWhiteCaptured([]);
+    setBlackCaptured([]);
   };
 
   // Hide banner to review the final game position
@@ -54,8 +62,11 @@ function App() {
 
   return (
     <div>
-    <Header title="PvP Chess Game" />
-    <div className="chessBoard">
+    <Header title="PvP Chess Game" onRestart={handleRestart}/>
+    <div className="chessBoard chessBoardRow">
+      {/* Left sidebar: pieces captured by Black (white pieces) */}
+      <CapturedPanel title="White Captured" pieces={whiteCaptured} className="leftPanel" />
+
       <div className="chessBoardWrapper" style={{ position: "relative" }}>
         {/* Apply blur effect to board when game over banner is shown */}
         <div className={gameOver.isGameOver && showBanner ? "blurred" : ""}>
@@ -67,6 +78,15 @@ function App() {
             highlights={highlights}
             setHighlights={setHighlights}
             setGameOver={setGameOver}
+            onCapture={(capturingColor, pieceType) => {
+              const capturedColor = capturingColor === 'white' ? 'black' : 'white';
+              // Place captured piece into its original color bucket
+              if (capturedColor === 'white') {
+                setWhiteCaptured((prev) => [...prev, { type: pieceType, color: 'white' }]);
+              } else {
+                setBlackCaptured((prev) => [...prev, { type: pieceType, color: 'black' }]);
+              }
+            }}
           />
         </div>
 
@@ -82,9 +102,12 @@ function App() {
           />
         )}
       </div>
+
+      {/* Right sidebar: pieces captured by White (black pieces) */}
+      <CapturedPanel title="Black Captured" pieces={blackCaptured} className="rightPanel" />
     </div>
     </div>
   );
 }
 
-export default App;
+export default Pvp;

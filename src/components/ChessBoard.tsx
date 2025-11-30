@@ -16,6 +16,7 @@ interface ChessBoardProps {
   highlights: Record<string, any>;
   setHighlights: (highlights: Record<string, any>) => void;
   setGameOver: (gameOver: GameOverState) => void;
+  onCapture?: (capturingColor: 'white' | 'black', piece: string) => void;
 }
 
 export default function ChessBoard({
@@ -26,6 +27,7 @@ export default function ChessBoard({
   highlights,
   setHighlights,
   setGameOver,
+  onCapture,
 }: ChessBoardProps) {
   // Get legal moves from a square
   const getLegalMoves = (square: Square) => {
@@ -82,6 +84,11 @@ export default function ChessBoard({
         setPosition(game.fen());
         setSelected(null);
         setHighlights({});
+        // Emit capture if occurred
+        if (move.captured && onCapture) {
+          const capturingColor = move.color === 'w' ? 'white' : 'black';
+          onCapture(capturingColor, move.captured);
+        }
         
         // Check game states
         if (game.isCheckmate()) {
