@@ -35,9 +35,6 @@ build
 coverage
 *.tsbuildinfo
 
-# Stockfish engine (copied from node_modules)
-public/stockfish/
-
 # OS files
 Thumbs.db
 .cache
