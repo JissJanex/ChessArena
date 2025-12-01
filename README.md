@@ -2,6 +2,8 @@
 
 A modern, interactive chess game built with React, TypeScript, and Vite. Play chess locally with a friend in an elegant wooden-themed interface.
 
+🎮 **[Play Now](https://chess-arena-steel.vercel.app/)**
+
 ## 🎮 Features
 
 - **Player vs Player**: Play chess against a friend on the same device
@@ -9,8 +11,6 @@ A modern, interactive chess game built with React, TypeScript, and Vite. Play ch
 - **Move Validation**: Only legal moves allowed with visual highlighting
 - **Captured Pieces**: Track pieces captured by each side
 - **Game Detection**: Automatic check, checkmate, stalemate, and draw detection
-- **Game Over Banner**: Review final position or start a new game
-- **Wooden Theme**: Elegant board design with custom textures
 
 ## 🚀 Getting Started
 
