@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Square } from "chess.js";
 import ChessBoard from "../components/ChessBoard";
 import { game } from "../components/ChessLogic";
@@ -37,6 +37,18 @@ function Pvp() {
 
   // Controls visibility of the game over banner
   const [showBanner, setShowBanner] = useState(true);
+
+  // Reset the game when component mounts
+  useEffect(() => {
+    game.reset();
+    setPosition(game.fen());
+    setSelected(null);
+    setHighlights({});
+    setGameOver({ isGameOver: false, result: null, winner: null });
+    setShowBanner(true);
+    setWhiteCaptured([]);
+    setBlackCaptured([]);
+  }, []);
 
   // Restart the game - resets board to initial position
   const handleRestart = () => {

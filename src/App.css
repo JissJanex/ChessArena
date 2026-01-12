@@ -40,6 +40,90 @@ body {
   background: linear-gradient(145deg, #d2b48c, #a67c52);
 }
 
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .chessBoardWrapper {
+    width: min(90vw, calc(100vh - 180px));
+    height: min(90vw, calc(100vh - 180px));
+  }
+
+  .chessBoard {
+    padding: 10px;
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+  }
+
+  .chessBoardRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .capturedPanel {
+    width: 90vw;
+    max-width: none;
+    min-width: unset;
+    flex-direction: row;
+    padding: 8px;
+  }
+
+  .capturedPanel h3 {
+    font-size: 0.9rem;
+    margin-right: 10px;
+  }
+
+  .capturedList {
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .capturedPiece {
+    width: 30px;
+    height: 30px;
+  }
+
+  .capturedIcon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .header {
+    height: 60px;
+  }
+
+  .header h1 {
+    font-size: 1.3rem;
+  }
+
+  .header nav ul li a,
+  .restartButton {
+    font-size: 0.95rem;
+  }
+
+  .gameOverBanner {
+    min-width: unset;
+    width: 85vw;
+    padding: 30px 20px;
+  }
+
+  .gameOverBanner h1 {
+    font-size: 1.8rem;
+  }
+
+  .gameOverBanner p {
+    font-size: 1.2rem;
+  }
+
+  .bannerButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .reviewButton,
+  .newGameButton {
+    width: 100%;
+  }
+}
+
 /* Captured panels */
 .capturedPanel {
   width: 12vw;

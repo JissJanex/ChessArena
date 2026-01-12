@@ -42,6 +42,19 @@ function Ai() {
   const isAiThinking = useRef(false);
   const aiReady = useRef(false);
 
+  // Reset the game when component mounts
+  useEffect(() => {
+    game.reset();
+    setPosition(game.fen());
+    setSelected(null);
+    setHighlights({});
+    setGameOver({ isGameOver: false, result: null, winner: null });
+    setShowBanner(true);
+    setWhiteCaptured([]);
+    setBlackCaptured([]);
+    isAiThinking.current = false;
+  }, []);
+
   // Initialize Stockfish
   useEffect(() => {
     stockfish.onmessage = (e) => {
